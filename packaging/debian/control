@@ -1,0 +1,16 @@
+Source: gnome-shell-extension-appgrid-uninstall
+Section: gnome
+Priority: optional
+Maintainer: Soumya <i.soumya18@example.com>
+Build-Depends: debhelper-compat (= 13), meson, ninja-build, glib-compile-schemas
+Standards-Version: 4.6.2
+Homepage: https://github.com/i-soumya18/gnome-shell-appgrid-uninstall
+Rules-Requires-Root: no
+
+Package: gnome-shell-extension-appgrid-uninstall
+Architecture: all
+Depends: gnome-shell (>= 42), gjs, ${misc:Depends}
+Recommends: flatpak, snapd
+Description: Right-click uninstall for GNOME App Grid
+ Adds an Uninstall option to the GNOME Shell application grid context menu.
+ Supports Flatpak, Snap, APT, RPM, and DNF packages.

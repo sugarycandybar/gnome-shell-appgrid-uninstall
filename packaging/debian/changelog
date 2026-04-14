@@ -1,0 +1,5 @@
+gnome-shell-extension-appgrid-uninstall (1.0.0-1) unstable; urgency=medium
+
+  * Initial packaging for GNOME app-grid uninstall extension.
+
+ -- Soumya <i.soumya18@example.com>  Tue, 14 Apr 2026 13:30:00 +0530

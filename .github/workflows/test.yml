@@ -1,0 +1,33 @@
+name: Integration Tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gnome-shell gjs flatpak xvfb dbus-x11 \
+            gnome-settings-daemon mutter
+
+      - name: Install Flatpak runtime
+        run: |
+          flatpak remote-add --user --if-not-exists flathub \
+            https://flathub.org/repo/flathub.flatpakrepo
+
+      - name: Compile schemas
+        run: glib-compile-schemas extension/schemas/
+
+      - name: Run unit tests
+        run: gjs -m tests/unit/run_all.js
+
+      - name: Run integration tests in Xvfb
+        run: |
+          Xvfb :99 -screen 0 1920x1080x24 &
+          export DISPLAY=:99
+          dbus-launch --exit-with-session bash tests/integration/run_all.sh

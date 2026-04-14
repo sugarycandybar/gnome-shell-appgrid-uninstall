@@ -1,0 +1,17 @@
+[
+  {
+    "id": "org.gnome.Calculator.desktop",
+    "name": "Calculator",
+    "desktop_path": "/var/lib/flatpak/app/org.gnome.Calculator/current/active/export/share/applications/org.gnome.Calculator.desktop"
+  },
+  {
+    "id": "spotify_spotify.desktop",
+    "name": "Spotify",
+    "desktop_path": "/snap/spotify/current/meta/gui/spotify.desktop"
+  },
+  {
+    "id": "org.gnome.Nautilus.desktop",
+    "name": "Files",
+    "desktop_path": "/usr/share/applications/org.gnome.Nautilus.desktop"
+  }
+]

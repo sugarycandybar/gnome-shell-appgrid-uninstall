@@ -1,0 +1,13 @@
+<node>
+  <interface name="org.gnome.AppGridUninstall">
+    <method name="UninstallPackage">
+      <arg name="package_type" type="s" direction="in"/>
+      <arg name="package_name" type="s" direction="in"/>
+      <arg name="success" type="b" direction="out"/>
+      <arg name="error_msg" type="s" direction="out"/>
+    </method>
+    <signal name="ProgressUpdate">
+      <arg name="message" type="s"/>
+    </signal>
+  </interface>
+</node>

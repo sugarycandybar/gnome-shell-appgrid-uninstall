@@ -1,0 +1,6 @@
+[D-BUS Service]
+Name=org.gnome.AppGridUninstall
+# Optional native helper daemon path (implemented in later phase):
+Exec=/usr/libexec/gnome-appgrid-uninstall-helper
+User=root
+SystemdService=gnome-appgrid-uninstall-helper.service

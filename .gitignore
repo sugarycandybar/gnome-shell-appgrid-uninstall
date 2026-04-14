@@ -1,0 +1,79 @@
+# Build artifacts
+/build/
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+*.meson-private/
+
+# Meson
+meson-private/
+meson-logs/
+
+# Editor & IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+.vim/
+
+# npm/node
+node_modules/
+package-lock.json
+yarn.lock
+*.tgz
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+*.egg-info/
+dist/
+.venv/
+venv/
+
+# GNOME Shell extension specifics
+*.gschemas.compiled
+*.service~
+*.policy~
+
+# Documentation generated
+docs/_build/
+site/
+
+# Test coverage
+.coverage
+coverage/
+*.lcov
+
+# Temporary files
+*.log
+.#*
+\#*\#
+tmp/
+temp/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+.directory
+
+# Extension ZIP packages (built artifacts)
+*.zip
+
+# Credentials & secrets
+.env
+.env.local
+.secrets/
+*.key
+*.pem
+
+# CLAUDE.md should not be in the repo (project-internal documentation)
+CLAUDE.md
