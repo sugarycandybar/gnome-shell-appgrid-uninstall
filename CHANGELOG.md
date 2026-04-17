@@ -8,6 +8,16 @@
 
 ### Changed
 
+## [1.1.1] - 2026-04-17
+
+### Added
+
+### Fixed
+- GitHub release workflow token permissions to allow release creation.
+
+### Changed
+- Release tag target updated to v1.1.1 while keeping GNOME metadata version at 2.
+
 ## [1.1.0] - 2026-04-17
 
 ### Added

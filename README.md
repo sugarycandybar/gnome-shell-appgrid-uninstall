@@ -30,7 +30,7 @@ Right-click any app in the GNOME App Grid and uninstall it directly.
 
 ## Current Release
 
-- Semantic release tag: v1.1.0
+- Semantic release tag: v1.1.1
 - GNOME Extensions metadata version: 2
 
 ## Project Status
