@@ -1,4 +1,2 @@
 extension/* usr/share/gnome-shell/extensions/appgrid-uninstall@i-soumya18.github.io/
 helper/data/org.gnome.AppGridUninstall.policy usr/share/polkit-1/actions/
-helper/data/org.gnome.AppGridUninstall.service usr/share/dbus-1/system-services/
-helper/data/org.gnome.AppGridUninstall.xml usr/share/dbus-1/interfaces/

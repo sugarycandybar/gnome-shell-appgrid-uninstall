@@ -22,12 +22,18 @@ sudo meson install -C build
 
 This installs extension files, schemas, and helper policy metadata to system paths.
 
+If you explicitly want to install optional native-helper D-Bus metadata scaffolding,
+configure Meson with:
+
+```bash
+meson setup build --prefix=/usr -Dinstall_helper_service_metadata=true
+```
+
 ## 3) Packaging install paths
 
 - Extension JS files: `/usr/share/gnome-shell/extensions/appgrid-uninstall@i-soumya18.github.io`
 - GSettings schema XML: `/usr/share/glib-2.0/schemas`
 - Polkit policy: `/usr/share/polkit-1/actions/org.gnome.AppGridUninstall.policy`
-- D-Bus service metadata: `/usr/share/dbus-1/system-services/org.gnome.AppGridUninstall.service`
 
 ## 4) Troubleshooting
 

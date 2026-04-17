@@ -37,8 +37,6 @@ Supports Flatpak, Snap, APT, RPM, and DNF package types.
 %{_datadir}/gnome-shell/extensions/appgrid-uninstall@i-soumya18.github.io/*
 %{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.appgrid-uninstall.gschema.xml
 %{_datadir}/polkit-1/actions/org.gnome.AppGridUninstall.policy
-%{_datadir}/dbus-1/system-services/org.gnome.AppGridUninstall.service
-%{_datadir}/dbus-1/interfaces/org.gnome.AppGridUninstall.xml
 
 %changelog
 * Tue Apr 14 2026 Soumya <i.soumya18@example.com> - 1.0.0-1

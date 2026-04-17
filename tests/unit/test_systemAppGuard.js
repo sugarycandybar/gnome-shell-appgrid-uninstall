@@ -30,5 +30,14 @@ export function run() {
     assertEqual(guard.isProtected(normalApp), false);
   }));
 
+  tests.push(runTest('protects apps configured in blocked-apps settings', () => {
+    const guardWithSettings = new SystemAppGuard({
+      get_strv: () => ['org.gnome.Calculator.desktop'],
+    });
+
+    const app = fakeApp('org.gnome.Calculator.desktop', '/usr/share/applications/org.gnome.Calculator.desktop', true);
+    assertTrue(guardWithSettings.isProtected(app));
+  }));
+
   return tests;
 }

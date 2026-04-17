@@ -30,8 +30,10 @@ export class ConfirmDialog {
         text: this._options.warningText ?? this._t('This application is protected.'),
         style_class: 'prompt-dialog-headline',
       });
-      label.clutter_text.set_line_wrap(true);
-      label.clutter_text.set_ellipsize(0);
+      if (label.clutter_text) {
+        label.clutter_text.set_line_wrap(true);
+        label.clutter_text.set_ellipsize(0);
+      }
       content.add_child(label);
 
       dialog.contentLayout.add_child(content);
@@ -49,23 +51,28 @@ export class ConfirmDialog {
 
     const dialog = new ModalDialog.ModalDialog({styleClass: 'prompt-dialog'});
 
-    const pkgInfo = this._pkg
+    const includePkgInfo = this._options.showPackageType !== false;
+    const pkgInfo = includePkgInfo && this._pkg
       ? `\n${this._t('Package type')}: ${this._pkg.type.toUpperCase()} · ${this._pkg.identifier}`
       : '';
 
     const headline = new St.Label({
-      text: this._t('Uninstall "%s"?').format(appName),
+      text: this._format(this._t('Uninstall "%s"?'), appName),
       style_class: 'prompt-dialog-headline',
     });
-    headline.clutter_text.set_line_wrap(true);
-    headline.clutter_text.set_ellipsize(0);
+    if (headline.clutter_text) {
+      headline.clutter_text.set_line_wrap(true);
+      headline.clutter_text.set_ellipsize(0);
+    }
 
     const body = new St.Label({
       text: this._t('This will permanently remove the application from your system.') + pkgInfo,
       style_class: 'prompt-dialog-description',
     });
-    body.clutter_text.set_line_wrap(true);
-    body.clutter_text.set_ellipsize(0);
+    if (body.clutter_text) {
+      body.clutter_text.set_line_wrap(true);
+      body.clutter_text.set_ellipsize(0);
+    }
 
     dialog.contentLayout.add_child(headline);
     dialog.contentLayout.add_child(body);
@@ -91,8 +98,24 @@ export class ConfirmDialog {
   }
 
   _t(text) {
+    if (typeof this._options?.gettext === 'function')
+      return this._options.gettext(text);
+
     if (typeof globalThis._ === 'function')
       return globalThis._(text);
+
     return text;
+  }
+
+  _format(message, ...args) {
+    if (typeof message?.format === 'function')
+      return message.format(...args);
+
+    let index = 0;
+    return String(message).replace(/%s/g, () => {
+      const value = args[index];
+      index += 1;
+      return String(value ?? '');
+    });
   }
 }

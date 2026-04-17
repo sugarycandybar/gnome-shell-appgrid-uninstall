@@ -1,1 +1,6 @@
-# Meson options will be added in later phases as needed.
+option(
+	'install_helper_service_metadata',
+	type: 'boolean',
+	value: false,
+	description: 'Install optional native helper D-Bus service/interface metadata'
+)

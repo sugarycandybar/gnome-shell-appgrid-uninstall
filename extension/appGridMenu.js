@@ -10,6 +10,7 @@ const MENU_METHOD_CANDIDATES = ['popupMenu', '_buildMenu', '_createMenu'];
 export class AppGridMenuPatcher {
   constructor(extension) {
     this._extension = extension;
+    this._settings = this._safeGetSettings();
     this._isPatched = false;
     this._patchedMethod = null;
     this._originalMethod = null;
@@ -55,11 +56,16 @@ export class AppGridMenuPatcher {
       proto[this._patchedMethod] = this._originalMethod;
 
     for (const entry of this._menuEntries) {
-      const {menu, item, separator, activateId} = entry;
+      const {menu, item, separator, activateId, destroyId} = entry;
 
       try {
         if (item && activateId)
           item.disconnect(activateId);
+      } catch (_) {}
+
+      try {
+        if (item && destroyId)
+          item.disconnect(destroyId);
       } catch (_) {}
 
       try {
@@ -114,11 +120,17 @@ export class AppGridMenuPatcher {
     });
     menu.addMenuItem(uninstallItem);
 
-    const guard = new SystemAppGuard();
+    const guard = new SystemAppGuard(this._settings);
     if (guard.isProtected(appIcon.app)) {
       uninstallItem.setSensitive(false);
       uninstallItem.label.set_text(this._t('Uninstall (System App)'));
     }
+
+    let destroyId = 0;
+    destroyId = uninstallItem.connect('destroy', () => {
+      destroyId = 0;
+      this._menuEntries = this._menuEntries.filter(entry => entry.item !== uninstallItem);
+    });
 
     menu._appGridUninstallInjected = true;
     this._menuEntries.push({
@@ -126,6 +138,7 @@ export class AppGridMenuPatcher {
       separator,
       item: uninstallItem,
       activateId,
+      destroyId,
     });
   }
 
@@ -140,5 +153,16 @@ export class AppGridMenuPatcher {
     if (typeof this._extension?.gettext === 'function')
       return this._extension.gettext(text);
     return text;
+  }
+
+  _safeGetSettings() {
+    if (typeof this._extension?.getSettings !== 'function')
+      return null;
+
+    try {
+      return this._extension.getSettings();
+    } catch (_) {
+      return null;
+    }
   }
 }

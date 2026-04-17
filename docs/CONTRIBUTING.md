@@ -23,10 +23,14 @@ npm install -g eslint @eslint/js
 ## Checks
 
 ```bash
-eslint extension/
+jq . extension/metadata.json > /dev/null
+glib-compile-schemas --strict extension/schemas/
+shellcheck packaging/*.sh tests/integration/*.sh
 gjs -m tests/unit/run_all.js
-bash tests/integration/run_all.sh
+APPGRID_UNINSTALL_DESTRUCTIVE_TESTS=1 bash tests/integration/run_all.sh
 ```
+
+If you do not set `APPGRID_UNINSTALL_DESTRUCTIVE_TESTS=1`, integration tests are skipped.
 
 ## Rules
 

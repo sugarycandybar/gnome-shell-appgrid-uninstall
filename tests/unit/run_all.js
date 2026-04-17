@@ -1,5 +1,6 @@
 import {run as runPackageDetectorTests} from './test_packageDetector.js';
 import {run as runSystemAppGuardTests} from './test_systemAppGuard.js';
+import {run as runUninstallManagerTests} from './test_uninstallManager.js';
 
 function summarize(results) {
   const total = results.length;
@@ -12,17 +13,7 @@ function summarize(results) {
   return 0;
 }
 
-async function loadUninstallManagerTests() {
-  try {
-    const module = await import('./test_uninstallManager.js');
-    return await module.run();
-  } catch (error) {
-    print(`SKIP uninstallManager tests: ${error.message}`);
-    return [];
-  }
-}
-
-const uninstallManagerResults = await loadUninstallManagerTests();
+const uninstallManagerResults = await runUninstallManagerTests();
 const packageDetectorResults = await runPackageDetectorTests();
 const systemAppGuardResults = runSystemAppGuardTests();
 

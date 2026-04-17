@@ -16,11 +16,20 @@ const PROTECTED_PATH_PREFIXES = [
 ];
 
 export class SystemAppGuard {
+  constructor(settings = null) {
+    this._settings = settings;
+  }
+
   isProtected(app) {
     if (!app)
       return true;
 
     const appId = this._normalizeAppId(app.get_id?.() ?? '');
+    const blockedAppIds = this._getUserBlockedAppIds();
+
+    if (blockedAppIds.has(appId))
+      return true;
+
     if (PROTECTED_APP_IDS.has(appId))
       return true;
 
@@ -37,5 +46,17 @@ export class SystemAppGuard {
 
   _normalizeAppId(appId) {
     return appId.replace(/\.desktop$/, '');
+  }
+
+  _getUserBlockedAppIds() {
+    if (!this._settings || typeof this._settings.get_strv !== 'function')
+      return new Set();
+
+    try {
+      const entries = this._settings.get_strv('blocked-apps') ?? [];
+      return new Set(entries.map(appId => this._normalizeAppId(appId)));
+    } catch (_) {
+      return new Set();
+    }
   }
 }

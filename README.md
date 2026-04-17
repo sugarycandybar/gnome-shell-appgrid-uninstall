@@ -21,18 +21,24 @@ Right-click any app in the GNOME App Grid and uninstall it directly.
   - extensions.gnome.org ZIP
   - Debian (`packaging/debian`)
   - RPM (`packaging/rpm`)
+- Optional native D-Bus helper metadata (disabled by default until helper backend is implemented)
 
 ## Compatibility
 
 - Ubuntu 22.04 LTS / 24.04 LTS
 - GNOME Shell 42-49 (best effort beyond the original target matrix)
 
+## Current Release
+
+- Semantic release tag: v1.1.0
+- GNOME Extensions metadata version: 2
+
 ## Project Status
 
-Current implementation includes Phases 1-9 from the project plan in `CLAUDE.md`.
+Current implementation includes the production extension path from Phases 1-9 in `CLAUDE.md`.
 
-- Implemented: core extension, context menu patching, uninstall backend, dialogs, notifications, Polkit policy assets, preferences UI, testing scaffolding, packaging workflow
-- In progress / roadmap: deeper runtime settings integration, hardened integration tests with full UI automation, optional native D-Bus helper implementation
+- Implemented: core extension, context menu patching, uninstall backend, settings-driven behavior toggles, dialogs, notifications, Polkit policy assets, preferences UI, unit tests, packaging workflow
+- In progress / roadmap: full GNOME UI automation for uninstall interaction tests, optional native D-Bus helper daemon implementation
 
 ## Quick Start (Development)
 
@@ -75,6 +81,22 @@ bash packaging/make_zip.sh
 ```
 
 Artifacts and metadata for Debian/RPM are available under `packaging/`.
+
+## Testing
+
+Run unit tests:
+
+```bash
+gjs -m tests/unit/run_all.js
+```
+
+Run destructive integration tests (opt-in only):
+
+```bash
+APPGRID_UNINSTALL_DESTRUCTIVE_TESTS=1 bash tests/integration/run_all.sh
+```
+
+Without `APPGRID_UNINSTALL_DESTRUCTIVE_TESTS=1`, integration tests are reported as skipped.
 
 ## Documentation
 

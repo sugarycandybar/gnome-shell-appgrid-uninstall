@@ -27,6 +27,8 @@ jobs:
         run: gjs -m tests/unit/run_all.js
 
       - name: Run integration tests in Xvfb
+        env:
+          APPGRID_UNINSTALL_DESTRUCTIVE_TESTS: '0'
         run: |
           Xvfb :99 -screen 0 1920x1080x24 &
           export DISPLAY=:99
